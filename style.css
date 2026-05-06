@@ -3,3 +3,99 @@
     margin: 0;
     box-sizing: border-box;
 }
+
+body {
+    font-family: Arial, sans-serif;
+    background: hsl(0, 0%, 96%);
+    padding: 20px;
+}
+
+h1 {
+    text-align: center;
+}
+
+form {
+    background: white;
+    padding: 2em;
+    border-radius: 8px;
+    max-width: 500px;
+    margin: 0 auto 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    label {
+        font-weight: bold;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+aside {
+    margin: 0 auto;
+    text-align: center;
+    padding: 2em;
+    background-color: hsl(213, 100%, 94%);
+    border-radius: 10px;
+    max-width: 70%;
+
+    h2 {
+        background-color: hsl(0, 0%, 100%);
+        padding: 20px;
+        border-radius: 50px;
+    }
+}
+
+input {
+    padding: 10px;
+    border: 1px solid hsl(0, 0%, 80%);
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px;
+    background: hsl(211, 100%, 50%);
+    color: hsl(0, 0%, 100%);
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+button:hover {
+    background: hsl(211, 100%, 35%);
+}
+
+.lista {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 15px;
+    padding: 1em;
+}
+
+.card {
+    background: hsl(0, 0%, 100%);
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.card img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.card button {
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.erro {
+    font-weight: bold;
+    font-size: 32px;
+    color: red;
+    text-align: center;
+    margin-bottom: 10px;
+}
