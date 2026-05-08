@@ -19,7 +19,7 @@ const inputFoto = document.getElementById("foto");
 
 // Funções
 
-      // Carregar os contatos ao iniciar
+    // Carregar os contatos ao iniciar
 async function carregarContatos() {
   try {
     const contatos = await getContatos();
@@ -27,71 +27,74 @@ async function carregarContatos() {
   } catch (erro) {
     mostrarErro(erro.message);
   }
-}
+};
 
-      // Criar cartao para cada contato
+    // Criar cartao para cada contato
 function criarCard(contato) {
   const cartao = document.createElement("div");
   cartao.classList.add("card");
 
-  const botaoEdit = document.createElement("button")
-  botaoEdit.classList.add("botao-editar")
-  botaoEdit.textContent = "Editar"
+      //Botao editar contato
+  const botaoEditar = document.createElement("button");
+  botaoEditar.classList.add("botao-editar");
+  botaoEditar.textContent = "Editar";
+  botaoEditar.addEventListener("click", () => {
+      preencherFormulario(contato);
+    });
   
-  const botaoRemover = document.createElement("button")
-  botaoRemover.classList.add("botao-remover")
-  botaoRemover.textContent = "Remover"
+      // Botao remover contato
+  const botaoRemover = document.createElement("button");
+  botaoRemover.classList.add("botao-remover");
+  botaoRemover.textContent = "Remover";
+  botaoRemover.addEventListener("click", () => {
+    if (confirm(`Excluir * ${contato.nome} * da lista de contatos?`)) {
+      removerContato(contato.id);
+    }
+  });
 
   const foto = document.createElement("img");
+  foto.alt = `Pequeno circulo contendo uma foto do ${contato.nome}`;
+
   const nome = document.createElement("h3");
+  nome.textContent = contato.nome;
+
   const email = document.createElement("p");
+  email.textContent = `Email: ${contato.email}`;
+
   const telefone = document.createElement("p");
+  telefone.textContent = `Telefone: ${contato.telefone}`;
 
-  foto.src = contato.foto
-  foto.alt = `Pequeno circulo contendo uma foto do ${contato.nome}`
-  nome.textContent = contato.nome
-  email.textContent = `Email: ${contato.email}`
-  telefone.textContent = `Telefone: ${contato.telefone}`
+  if (!contato.foto) {
+    foto.src = "https://img.freepik.com/psd-gratuitas/ilustracao-3d-de-avatar-ou-perfil-humano_23-2150671122.jpg";
+  } else { 
+    foto.src = contato.foto;
+  }
 
-  cartao.append(foto, nome, email, telefone, botaoEdit, botaoRemover)
+  cartao.append(foto, nome, email, telefone, botaoEditar, botaoRemover);
 
   return cartao;
-}
+};
 
-      // Gerar a lista
+    // Gerar a lista
 function gerarLista(contatos) {
   lista.textContent = "";
 
   contatos.forEach(contato => {
     const card = criarCard(contato);
     lista.appendChild(card);
-
-        // Eventos Editar e Remover
-    const botaoEditar = card.querySelector(".botao-editar");
-    botaoEditar.addEventListener("click", (editar) => {
-      preencherFormulario(contato);
-    });
-
-    const botaoRemover = card.querySelector(".botao-remover");
-    botaoRemover.addEventListener("click", (remover) => {
-      if (confirm(`Excluir * ${contato.nome} * da lista de contatos?`)) {
-        removerContato(contato.id)
-      }
-    });
-
   });
-}
+};
 
-      // Preencher formulario para edição
+    // Preencher formulario para edição
 function preencherFormulario(contato) {
   inputId.value = contato.id;
   inputNome.value = contato.nome;
   inputEmail.value = contato.email;
   inputTelefone.value = contato.telefone;
   inputFoto.value = contato.foto;
-}
+};
 
-      // Criar ou atualizar contato 
+    // Criar ou atualizar contato 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
@@ -118,7 +121,7 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-      //Deletar contato
+    //Deletar contato
 async function removerContato(id) {
     try {
       await deletarContato(id);
@@ -128,12 +131,10 @@ async function removerContato(id) {
     }
 };
 
-
 // ERRO
 function mostrarErro(mensagem) {
   erroDiv.textContent = mensagem;
   setTimeout(() => erroDiv.textContent = "", 3000);
-}
+};
 
-
-carregarContatos();
+await carregarContatos();
