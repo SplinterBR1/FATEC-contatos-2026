@@ -50,8 +50,8 @@ function criarCard(contato) {
   foto.src = contato.foto
   foto.alt = `Pequeno circulo contendo uma foto do ${contato.nome}`
   nome.textContent = contato.nome
-  email.textContent = contato.email
-  telefone.textContent = contato.telefone
+  email.textContent = `Email: ${contato.email}`
+  telefone.textContent = `Telefone: ${contato.telefone}`
 
   cartao.append(foto, nome, email, telefone, botaoEdit, botaoRemover)
 
