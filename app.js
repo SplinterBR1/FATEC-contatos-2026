@@ -16,6 +16,7 @@ const inputTelefone = document.getElementById("telefone");
 const inputFoto = document.getElementById("foto");
 
 
+
 // Funções
 
       // Carregar os contatos ao iniciar
@@ -28,32 +29,54 @@ async function carregarContatos() {
   }
 }
 
+      // Criar cartao para cada contato
+function criarCard(contato) {
+  const cartao = document.createElement("div");
+  cartao.classList.add("card");
+
+  const botao = document.createElement("button")
+  botao.classList.add("botao-editar")
+  botao.textContent = "Editar"
+
+  const foto = document.createElement("img");
+  const nome = document.createElement("h3");
+  const email = document.createElement("p");
+  const telefone = document.createElement("p");
+
+  foto.src = contato.foto
+  foto.alt = `"Pequeno circulo contendo uma foto do ${contato.nome}"`
+  nome.textContent = contato.nome
+  email.textContent = contato.email
+  telefone.textContent = contato.telefone
+
+  cartao.append(foto, nome, email, telefone, botao)
+
+  return cartao;
+}
+
       // Gerar a lista
 function gerarLista(contatos) {
   lista.textContent = "";
 
   contatos.forEach(contato => {
-    const card = document.createElement("div");
-    card.classList.add("card");
-
-    const foto = document.createElement("img");
-    const nome = document.createElement("h3");
-    const email = document.createElement("p");
-    const telefone = document.createElement("p");
-
-    const botao = document.createElement("p")
-    botao.innerHTML = `<button onclick="editar('${contato.id}', '${contato.nome}', '${contato.email}', '${contato.telefone}', '${contato.foto}')">Editar</button>`
-
-    foto.src = contato.foto
-    foto.alt = "Foto redonda do contato cadastrado"
-    nome.textContent = contato.nome
-    email.textContent = contato.email
-    telefone.textContent = contato.telefone
- 
-    card.append(foto, nome, email, telefone, botao)
+    const card = criarCard(contato);
     lista.appendChild(card);
+
+    const botaoEditar = card.querySelector(".botao-editar");
+    botaoEditar.addEventListener("click", (c) => {
+      preencherFormulario(contato);
+    });
     
   });
+}
+
+      // Preencher formulario para edição
+function preencherFormulario(contato) {
+  inputId.value = contato.id;
+  inputNome.value = contato.nome;
+  inputEmail.value = contato.email;
+  inputTelefone.value = contato.telefone;
+  inputFoto.value = contato.foto;
 }
 
       // Criar ou atualizar contato 
@@ -83,15 +106,9 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
-window.editar = (id, nome, email, telefone, foto) => {
-  inputId.value = id;
-  inputNome.value = nome;
-  inputEmail.value = email;
-  inputTelefone.value = telefone;
-  inputFoto.value = foto;
-};
 
-      // ERRO
+
+// ERRO
 function mostrarErro(mensagem) {
   erroDiv.textContent = mensagem;
   setTimeout(() => erroDiv.textContent = "", 3000);
