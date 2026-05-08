@@ -34,9 +34,13 @@ function criarCard(contato) {
   const cartao = document.createElement("div");
   cartao.classList.add("card");
 
-  const botao = document.createElement("button")
-  botao.classList.add("botao-editar")
-  botao.textContent = "Editar"
+  const botaoEdit = document.createElement("button")
+  botaoEdit.classList.add("botao-editar")
+  botaoEdit.textContent = "Editar"
+  
+  const botaoRemover = document.createElement("button")
+  botaoRemover.classList.add("botao-remover")
+  botaoRemover.textContent = "Remover"
 
   const foto = document.createElement("img");
   const nome = document.createElement("h3");
@@ -44,12 +48,12 @@ function criarCard(contato) {
   const telefone = document.createElement("p");
 
   foto.src = contato.foto
-  foto.alt = `"Pequeno circulo contendo uma foto do ${contato.nome}"`
+  foto.alt = `Pequeno circulo contendo uma foto do ${contato.nome}`
   nome.textContent = contato.nome
   email.textContent = contato.email
   telefone.textContent = contato.telefone
 
-  cartao.append(foto, nome, email, telefone, botao)
+  cartao.append(foto, nome, email, telefone, botaoEdit, botaoRemover)
 
   return cartao;
 }
@@ -62,11 +66,19 @@ function gerarLista(contatos) {
     const card = criarCard(contato);
     lista.appendChild(card);
 
+        // Eventos Editar e Remover
     const botaoEditar = card.querySelector(".botao-editar");
-    botaoEditar.addEventListener("click", (c) => {
+    botaoEditar.addEventListener("click", (editar) => {
       preencherFormulario(contato);
     });
-    
+
+    const botaoRemover = card.querySelector(".botao-remover");
+    botaoRemover.addEventListener("click", (remover) => {
+      if (confirm(`Excluir * ${contato.nome} * da lista de contatos?`)) {
+        removerContato(contato.id)
+      }
+    });
+
   });
 }
 
@@ -106,6 +118,15 @@ form.addEventListener("submit", async (e) => {
   }
 });
 
+      //Deletar contato
+async function removerContato(id) {
+    try {
+      await deletarContato(id);
+      carregarContatos();
+    } catch (erro) {
+      mostrarErro(erro.message);
+    }
+};
 
 
 // ERRO
