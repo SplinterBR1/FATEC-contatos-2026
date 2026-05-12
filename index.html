@@ -27,13 +27,16 @@
                 <label for="telefone"> Digite o telefone
                     <input type="text" id="telefone" placeholder="Telefone" required>
                 </label>
-                <label for="foto"> Insira um link para a foto
-                    <input type="text" id="foto" placeholder="URL da foto">
-                </label>
+                <label for="preview-input" id="foto-contato">Adicione uma foto</label>
+                <p class="image-field">
+                    <input id="preview-input" class="preview-input" type="file" accept="image/*">
+                    <label class="preview-label" for="preview-input"></label>
+                    <img id="preview-image" class="preview-image" src="./img/upload-icon.svg">
+                </p>
                 <button type="submit">Salvar</button>
             </form>
         </article>
-        
+
         <aside>
             <h2>Lista de contatos</h2>
             <div id="lista-contatos" class="lista"></div>

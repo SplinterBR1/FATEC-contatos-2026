@@ -13,7 +13,7 @@ const inputId = document.getElementById("id");
 const inputNome = document.getElementById("nome");
 const inputEmail = document.getElementById("email");
 const inputTelefone = document.getElementById("telefone");
-const inputFoto = document.getElementById("foto");
+const inputFoto = document.getElementById("preview-input");
 
 
 
@@ -136,5 +136,11 @@ function mostrarErro(mensagem) {
   erroDiv.textContent = mensagem;
   setTimeout(() => erroDiv.textContent = "", 3000);
 };
+
+function preview ({target}) {
+  document.getElementById('preview-image').src = URL.createObjectURL(target.files[0])
+}
+
+document.getElementById('preview-input').addEventListener('change', preview)
 
 await carregarContatos();
